@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/cdhorn515/5.3-todo-list-assessment#readme",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "mustache-express": "^1.2.4"
   }
