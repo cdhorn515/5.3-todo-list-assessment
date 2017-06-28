@@ -12,6 +12,9 @@
   },
   "author": "Christina Cornell",
   "license": "ISC",
+  "jshintConfig": {
+    "esversion": 6
+  },
   "bugs": {
     "url": "https://github.com/cdhorn515/5.3-todo-list-assessment/issues"
   },
@@ -21,6 +24,8 @@
     "express": "^4.15.3",
     "jsdom": "^11.0.0",
     "mustache-express": "^1.2.4",
-    "query-selector": "^1.0.9"
+    "pg": "^6.4.0",
+    "query-selector": "^1.0.9",
+    "sequelize": "^4.2.0"
   }
 }
