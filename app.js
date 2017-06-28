@@ -1,7 +1,6 @@
 const express = require('express');
 const mustacheExpress = require('mustache-express');
 const bodyParser = require('body-parser');
-// const jsdom = require('jsdom');
 const models = require('./models');
 
 const app = express();
@@ -52,24 +51,51 @@ app.post('/', function (req, res){
   models.Todo.create({
     title: req.body.title,
     priority: req.body.priority,
-    due_date: req.body.due_date,
+    due_date: new Date(req.body.due_date),
     completed: req.body.completed,
     assignee: req.body.assignee
   });
-  // var todoItems = context.todo;
-  // //pushes into variable that I created
-  // todoItems.push(req.body.to_do);
   res.redirect('/');
 });
 
-// app.post('/todo/:id', function (req, res){
-//    console.log("working");
-//    var id = req.params.id; //get address, look up, add to completed, delete from todo
-//    var todo = context.todo.splice(id, 1);
-//    context.completed.push(todo);
-//    res.redirect('/');
-//
-// });
+app.post('/todo/:id', function (req, res){
+  models.Todo.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then(function(todo){
+    todo.completed = true;
+    todo.save();
+    res.redirect('/');
+  });
+});
+
+app.post('/update/:id', function (req, res) {
+  models.Todo.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then(function(todo){
+  res.render('update', {model: todo});
+    });
+});
+
+app.post('/edit/:id', function(req, res) {
+  models.Todo.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then(function(todo){
+    todo.title = req.body.title,
+    todo.priority = req.body.priority,
+    todo.due_date = new Date(req.body.due_date),
+    todo.completed = req.body.completed,
+    todo.assignee = req.body.assignee,
+    todo.save();
+  })
+  res.redirect('/');
+});
+
 
 app.listen(3000, function(){
 console.log("app started successfully!");
@@ -92,4 +118,4 @@ console.log("app started successfully!");
 // , completedId: function(){
 //   return completedIdx++;
 // }
-// };
+// });

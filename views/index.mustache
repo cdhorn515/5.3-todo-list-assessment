@@ -14,7 +14,9 @@
        placeholder="Things to do"></div>
     <div><input type="tel" name="priority" value=""
       placeholder="priority"></div>
-    <div><input type="text" name="completed" value=""
+    <div><input type="date" name="due_date" value=""
+      placeholder="due_date"></div>
+    <div><input type="checkbox" name="completed"
       placeholder="completed"></div>
     <div><input type="text" name="assignee" value=""
       placeholder="assignee"></div>
@@ -22,37 +24,44 @@
 </form>
 
 <h2>Todo:</h2>
-<ul>
-  {{#model}}
-  {{^completed}}
-  <li>{{title}}</li>
-  {{/completed}}
-  {{/model}}
-</ul>
 
 <div>
-  <!-- <form class="" action="/todo/{{todoId}}" method="post">
-
+  <ul>
+    {{#model}}
+    {{^completed}}
+  <form class="" action="/todo/{{id}}" method="post">
+<!-- <input type="checkbox" name="completed"  -->
 <input type="submit" name="todo" value="Mark Complete" class="todoList">
-<label for="todo">{{.}}</label>
-</form> -->
+<label for="todo" id="">{{title}}</label>
+</form>
+<form class="" action="/update/{{id}}" method="post">
+  <input type="submit" name="todo" value="Update" class="todoList">
+</form>
+{{/completed}}
+{{/model}}
+</ul>
   </div>
 
 <!-- query sel all checkboxes, for loop, take checkbox and get .parentnode.submit  -->
 <h2>Completed tasks:</h2>
-<ul>
-  {{#model}}
-  {{#completed}}
-  <li>{{title}}</li>
-  {{/completed}}
-  {{/model}}
-<!-- <div>
+
+<div>
+  <ul>
+    {{#model}}
+    {{#completed}}
+    <form class="" action="/todo/{{id}}" method="post">
   <input type="submit" name="completed" value="Completed" checked>
-   <label for="todo" class="checked">{{.}}</label>
+   <label for="todo" class="checked" id="">{{title}}</label>
+ </form>
+ <form class="" action="/update/{{id}}" method="post">
+   <input type="submit" name="todo" value="Update" class="todoList">
+ </form>
+   {{/completed}}
+   {{/model}}
+ </ul>
+</div>
 
-</div> -->
 
-
-<script src="/main.js" charset="utf-8"></script>
+<!-- <script src="/main.js" charset="utf-8"></script> -->
   </body>
 </html>
